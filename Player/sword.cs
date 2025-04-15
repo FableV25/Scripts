@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour
+public class Sword : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSP;
@@ -10,7 +10,7 @@ public class Sword : MonoBehaviour
 
     [SerializeField] private float attackCooldown = 1f; // Cooldown duration in seconds
 
-    private PlayerControls playerControls;
+
     private Animator myAnimator;
     private playerController playerController;
     private activeWeapon activeWeapon;
@@ -24,18 +24,8 @@ public class Sword : MonoBehaviour
         playerController = GetComponentInParent<playerController>();
         activeWeapon = GetComponentInParent<activeWeapon>();
         myAnimator = GetComponent<Animator>();
-        playerControls = new PlayerControls();
     }
 
-    private void OnEnable() 
-    {
-        playerControls.Enable();
-    }
-
-    void Start()
-    {
-        playerControls.Combat.Attack.started += _ => TryAttack();
-    }
 
     private void Update() 
     {
@@ -50,7 +40,7 @@ public class Sword : MonoBehaviour
         }
     }
 
-    private void Attack() 
+    public void Attack() 
     {
         myAnimator.SetTrigger("Attack");
         weaponCollider.gameObject.SetActive(true);
@@ -73,7 +63,8 @@ public class Sword : MonoBehaviour
     private IEnumerator ResetAttackCooldown()
     {
         yield return new WaitForSeconds(attackCooldown);
-        canAttack = true; // Enable attack after cooldown
+        // canAttack = true; // Enable attack after cooldown
+        activeWeapon.Instance.ToggleIsAttacking(false);
     }
 
     public void DoneAttackingAnimEvent()
