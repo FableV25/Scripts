@@ -5,96 +5,65 @@ using UnityEngine;
 public class Sword : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject slashAnimPrefab;
-    [SerializeField] private Transform slashAnimSP;
+    [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private Transform weaponCollider;
-
-    [SerializeField] private float attackCooldown = 1f; // Cooldown duration in seconds
-
+    [SerializeField] private float swordAttackCD = .5f;
 
     private Animator myAnimator;
     private playerController playerController;
     private activeWeapon activeWeapon;
-
     private GameObject slashAnim;
-    private bool canAttack = true; // Flag to control attack availability
-    int hit = 0;
+    private int attackCount = 0;
+    private bool isAttacking = false;
 
-    private void Awake() 
-    {
+
+    private void Awake() {
         playerController = GetComponentInParent<playerController>();
         activeWeapon = GetComponentInParent<activeWeapon>();
         myAnimator = GetComponent<Animator>();
     }
 
-
-    private void Update() 
-    {
+    private void Update() {
         MouseFollowWithOffset();
     }
 
-    private void TryAttack()
-    {
-        if (canAttack)
-        {
-            Attack();
-        }
-    }
-
-    public void Attack() 
-    {
+    public void Attack() {
+        // isAttacking = true;
         myAnimator.SetTrigger("Attack");
         weaponCollider.gameObject.SetActive(true);
-        hit++;
-
-        if (hit == 1)
-        {
-        slashAnim = Instantiate(slashAnimPrefab, slashAnimSP.position, Quaternion.identity);
+        slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
         slashAnim.transform.parent = this.transform.parent;
-        }
-
-        if (hit >= 2)
-        {
-            canAttack = false; // Disable attack
-            StartCoroutine(ResetAttackCooldown()); // Start cooldown timer
-            hit = 0;
-        }
+        StartCoroutine(AttackCDRoutine());
     }
 
-    private IEnumerator ResetAttackCooldown()
-    {
-        yield return new WaitForSeconds(attackCooldown);
-        // canAttack = true; // Enable attack after cooldown
+    private IEnumerator AttackCDRoutine() {
+        yield return new WaitForSeconds(swordAttackCD);
         activeWeapon.Instance.ToggleIsAttacking(false);
     }
 
-    public void DoneAttackingAnimEvent()
-    {
+    public void DoneAttackingAnimEvent() {
         weaponCollider.gameObject.SetActive(false);
     }
 
-/*  ------ animacion del destello de golpe (va de abajo a arriba) --------
-    public void SwingUpFlipAnimEvent()
-    {
+
+    public void SwingUpFlipAnimEvent() {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 0);
-    
-        if(playerController.FacingLeft)
-        {
+
+        if (playerController.FacingLeft) { 
             slashAnim.GetComponent<SpriteRenderer>().flipX = true;
         }
     }
-*/
-    public void SwingDownFlipAnimEvent()
-    {
+
+    public void SwingDownFlipAnimEvent() {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-    
-        if(playerController.FacingLeft)
+
+        if (playerController.FacingLeft)
         {
             slashAnim.GetComponent<SpriteRenderer>().flipX = true;
         }
     }
 
-    private void MouseFollowWithOffset() 
-    {
+    private void MouseFollowWithOffset() {
         Vector3 mousePos = Input.mousePosition;
         Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(playerController.transform.position);
 
