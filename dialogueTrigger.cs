@@ -14,6 +14,7 @@ public class DialogueTrigger : singleton<DialogueTrigger>
     [Header("Dialogue Settings")]
     public float wordSpeed;
     public bool isClose;
+    public bool panelOpen = false;
     public bool isTyping = false; // Track if we're currently typing
 
     [System.Serializable] public class DialogueEntry
@@ -138,6 +139,7 @@ public class DialogueTrigger : singleton<DialogueTrigger>
         if(collision.CompareTag("Player"))
         {
             isClose = true;
+            panelOpen = true;
         }
     }
 
@@ -146,6 +148,7 @@ public class DialogueTrigger : singleton<DialogueTrigger>
         if(collision.CompareTag("Player"))
         {
             isClose = false;
+            panelOpen = false;
             SaveDialogueProgress(); // Save when walking away
             ResetDialogueUI();
         }

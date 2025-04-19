@@ -12,12 +12,11 @@ public class playerController : singleton<playerController>
         get { return facingLeft; }
     }
 
-    
-
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float dashSpeed = 2f;
     [SerializeField] private float dashCD = 3f;
     [SerializeField] private TrailRenderer MyTrailRenderer;
+    [SerializeField] private Transform weaponCollider;
 
     
 
@@ -78,6 +77,11 @@ public class playerController : singleton<playerController>
     {
         AdjustPlayerFacingDirection();
         Move();
+    }
+
+    public Transform GetWeaponCollider()
+    {
+        return weaponCollider;
     }
 
     private void AdjustPlayerFacingDirection()

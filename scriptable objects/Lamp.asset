@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b219d8cebcca4286d37cd94426335, type: 3}
   m_Name: Lamp
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 0}
-  weeaponCD: 0
+  weaponPrefab: {fileID: 1421504470391057690, guid: 9db8c2595957fe44f98ee4473e7cc03e, type: 3}
+  weeaponCD: 0.5

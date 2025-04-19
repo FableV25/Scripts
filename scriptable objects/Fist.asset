@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b219d8cebcca4286d37cd94426335, type: 3}
   m_Name: Fist
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 0}
-  weeaponCD: 0
+  weaponPrefab: {fileID: 4789352193086546124, guid: d2703ff2368425944981e5372d0be643, type: 3}
+  weeaponCD: 0.5
