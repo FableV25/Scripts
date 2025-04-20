@@ -64,6 +64,7 @@ public class Hotbar : MonoBehaviour
 
         GameObject newWeapon = Instantiate(weaponToSpawn, activeWeapon.Instance.transform.position, Quaternion.identity);
 
+        activeWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
         newWeapon.transform.parent = activeWeapon.Instance.transform;
 
         activeWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
