@@ -5,7 +5,7 @@ using UnityEngine;
 public class Lamp : MonoBehaviour, IWeapon
 {
 
-    [SerializeField] private int testValue = -180;
+    [SerializeField] private weaponInfo weaponInfo;
     private void Update()
     {
         mouseFollowWithOffset();
@@ -14,7 +14,11 @@ public class Lamp : MonoBehaviour, IWeapon
     public void Attack()
     {
         Debug.Log("Lamp - lamapra");
-        activeWeapon.Instance.ToggleIsAttacking(false);
+    }
+
+    public weaponInfo GetWeaponInfo()
+    {
+        return weaponInfo;
     }
 
     private void mouseFollowWithOffset()
@@ -25,7 +29,7 @@ public class Lamp : MonoBehaviour, IWeapon
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
         if (mousePos.x < playerScreenPoint.x) {
-            activeWeapon.Instance.transform.rotation = Quaternion.Euler(0, testValue, angle);
+            activeWeapon.Instance.transform.rotation = Quaternion.Euler(0, -180, angle);
         } else {
             activeWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
         }

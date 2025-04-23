@@ -6,6 +6,7 @@ using UnityEngine;
 public class Fist : MonoBehaviour, IWeapon
 {
 
+    [SerializeField] private weaponInfo weaponInfo;
     private void Update()
     {
         mouseFollowWithOffset();
@@ -14,7 +15,11 @@ public class Fist : MonoBehaviour, IWeapon
     public void Attack()
     {
         Debug.Log("Fist - puño");
-        activeWeapon.Instance.ToggleIsAttacking(false);
+    }
+
+    public weaponInfo GetWeaponInfo()
+    {
+        return weaponInfo;
     }
 
     private void mouseFollowWithOffset()
