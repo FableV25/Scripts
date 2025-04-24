@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fist
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 4789352193086546124, guid: d2703ff2368425944981e5372d0be643, type: 3}
-  weeaponCD: 0.5
+  weeaponCD: 1.2

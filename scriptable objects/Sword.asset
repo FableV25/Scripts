@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 7120263694241821737, guid: d1029367c2e57a9468d0752925948153, type: 3}
-  weeaponCD: 0.5
+  weeaponCD: 2
