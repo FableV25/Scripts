@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,5 +30,10 @@ public class inventoryManager : MonoBehaviour
             hotBar.SetActive(false);
             menuActive = true;
         }
+    }
+
+    public void addItem(string itemName, int quantity, Sprite sprite)
+    {
+        Debug.Log("item: " + itemName + " quantity: " + quantity + " sprite: " + sprite);
     }
 }
