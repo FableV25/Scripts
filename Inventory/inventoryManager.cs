@@ -8,6 +8,7 @@ public class inventoryManager : MonoBehaviour
     public GameObject inventoryMenu;
     public GameObject hotBar;
     private bool menuActive; 
+    public itemSlot[] itemSlot;
 
     void Start()
     {
@@ -34,6 +35,13 @@ public class inventoryManager : MonoBehaviour
 
     public void addItem(string itemName, int quantity, Sprite sprite)
     {
-        Debug.Log("item: " + itemName + " quantity: " + quantity + " sprite: " + sprite);
+        for (int i = 0;  i < itemSlot.Length; i++)
+        {
+            if(itemSlot[i].isFull == false)
+            {
+                itemSlot[i].addItem(itemName, quantity, sprite);
+                return;
+            }    
+        }
     }
 }
