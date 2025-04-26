@@ -10,21 +10,16 @@ public class inventoryManager : MonoBehaviour
     private bool menuActive; 
     public itemSlot[] itemSlot;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I) && menuActive)
+        if(Input.GetKeyDown(KeyCode.Tab) && menuActive)
         {
             Time.timeScale = 1;
             inventoryMenu.SetActive(false);
             hotBar.SetActive(true);
             menuActive = false;
         }
-        else if (Input.GetKeyDown(KeyCode.I) && !menuActive)
+        else if (Input.GetKeyDown(KeyCode.Tab) && !menuActive)
         {
             Time.timeScale = 0;
             inventoryMenu.SetActive(true);
@@ -42,6 +37,15 @@ public class inventoryManager : MonoBehaviour
                 itemSlot[i].addItem(itemName, quantity, sprite);
                 return;
             }    
+        }
+    }
+
+    public void deSelect()
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            itemSlot[i].selectedShader.SetActive(false);
+            itemSlot[i].thisItemSelected = false;
         }
     }
 }
