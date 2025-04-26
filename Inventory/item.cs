@@ -7,6 +7,7 @@ public class item : MonoBehaviour
 
     [SerializeField] private string itemName;
     [SerializeField] private int quantity;
+    [TextArea][SerializeField] private string description;
     [SerializeField] private Sprite sprite;
     
     private inventoryManager inventoryManager;
@@ -20,7 +21,7 @@ public class item : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            inventoryManager.addItem(itemName, quantity, sprite);
+            inventoryManager.addItem(itemName, quantity, sprite, description);
             Destroy(gameObject);
         }
 

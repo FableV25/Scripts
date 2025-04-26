@@ -28,13 +28,13 @@ public class inventoryManager : MonoBehaviour
         }
     }
 
-    public void addItem(string itemName, int quantity, Sprite sprite)
+    public void addItem(string itemName, int quantity, Sprite sprite, string description)
     {
         for (int i = 0;  i < itemSlot.Length; i++)
         {
             if(itemSlot[i].isFull == false)
             {
-                itemSlot[i].addItem(itemName, quantity, sprite);
+                itemSlot[i].addItem(itemName, quantity, sprite, description);
                 return;
             }    
         }
