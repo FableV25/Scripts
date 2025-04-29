@@ -7,25 +7,53 @@ public class Lamp : MonoBehaviour, IWeapon
 {
 
     [SerializeField] private weaponInfo weaponInfo;
-    [SerializeField] private Light2D lampLight; // Or Light2D if using URP
+    [SerializeField] private Light2D lampLight; 
+    [SerializeField] private float fadeDuration = 0.2f;
 
-
-
+    private Coroutine fadeCoroutine;
+    private bool lightIsOn = true;
 
     private void Start()
     {
-        lampLight = GetComponentInChildren<Light2D>(); // Or Light2D
+        if (lampLight == null)
+            lampLight = GetComponentInChildren<Light2D>();
     }
+
+
 
     public void Attack()
     {
-        if (lampLight != null)
+        if (fadeCoroutine != null)
+            StopCoroutine(fadeCoroutine);
+
+        if (lightIsOn)
         {
-            Debug.Log("Lamp on - lamapra prendido");
-            lampLight.enabled = !lampLight.enabled;
-            Debug.Log("Lamp off - lamapra apagado");
+            fadeCoroutine = StartCoroutine(FadeLightOut());
         }
+        else
+        {
+            lampLight.intensity = 1f;
+            lampLight.enabled = true;
+        }
+
+        lightIsOn = !lightIsOn;
     }
+    private IEnumerator FadeLightOut()
+    {
+        float startIntensity = lampLight.intensity;
+        float time = 0f;
+
+        while (time < fadeDuration)
+        {
+            lampLight.intensity = Mathf.Lerp(startIntensity, 0f, time / fadeDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        lampLight.intensity = 0f;
+        lampLight.enabled = false;
+    }
+
 
     private void Update()
     {

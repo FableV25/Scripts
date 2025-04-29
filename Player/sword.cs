@@ -9,8 +9,6 @@ public class Sword : MonoBehaviour, IWeapon
     [SerializeField] private float swordAttackCD = .5f;
     [SerializeField] private weaponInfo weaponInfo;
 
-
-
     private Transform weaponCollider;
     private Animator myAnimator;
     private GameObject slashAnim;
