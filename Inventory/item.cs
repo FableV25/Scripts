@@ -21,8 +21,15 @@ public class item : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            inventoryManager.addItem(itemName, quantity, sprite, description);
-            Destroy(gameObject);
+            int leftOverItems = inventoryManager.addItem(itemName, quantity, sprite, description);
+            if (leftOverItems <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else 
+            {
+                quantity = leftOverItems;
+            }
         }
 
     }

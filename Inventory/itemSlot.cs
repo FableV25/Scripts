@@ -14,6 +14,7 @@ public class itemSlot : MonoBehaviour, IPointerClickHandler
     public bool isFull;
     public string description;
     public Sprite empty;
+    [SerializeField] private int maxItemNum;
 
     [SerializeField] private TMP_Text quantityText;
     [SerializeField] private Image itemImage;
@@ -31,17 +32,35 @@ public class itemSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = GameObject.Find("IUCanvas").GetComponent<inventoryManager>(); 
     }
 
-    public void addItem(string itemName, int quantity, Sprite sprite, string description)
+    public int addItem(string itemName, int quantity, Sprite sprite, string description)
     {
-        this.itemName = itemName;
-        this.quantity = quantity;
-        this.sprite = sprite;
-        this.description = description;
-        isFull = true;
 
-        quantityText.text = quantity.ToString();
-        quantityText.enabled = true;
+        if(isFull)
+        {
+            return quantity;
+        }
+
+        this.itemName = itemName;
+        this.sprite = sprite;
         itemImage.sprite = sprite;
+        this.description = description;
+
+        this.quantity += quantity;
+        if(this.quantity >= maxItemNum)
+        {
+            quantityText.text = maxItemNum.ToString();
+            quantityText.enabled = true;
+            isFull = true;
+        
+            int extraItems = this.quantity - maxItemNum;
+            this.quantity = maxItemNum;
+            return extraItems;
+        }
+        
+        quantityText.text = this.quantity.ToString();
+        quantityText.enabled = true;
+
+        return 0;
     }
 
     public void OnPointerClick(PointerEventData eventData)

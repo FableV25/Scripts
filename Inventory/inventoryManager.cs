@@ -28,16 +28,22 @@ public class inventoryManager : MonoBehaviour
         }
     }
 
-    public void addItem(string itemName, int quantity, Sprite sprite, string description)
+    public int addItem(string itemName, int quantity, Sprite sprite, string description)
     {
+
         for (int i = 0;  i < itemSlot.Length; i++)
         {
-            if(itemSlot[i].isFull == false)
+            if(itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
             {
-                itemSlot[i].addItem(itemName, quantity, sprite, description);
-                return;
+                int leftOverItems = itemSlot[i].addItem(itemName, quantity, sprite, description);
+                if(leftOverItems > 0)
+                    leftOverItems = addItem(itemName, leftOverItems, sprite, description);
+                    return leftOverItems;
             }    
+            
         }
+        
+        return quantity;
     }
 
     public void deSelect()
